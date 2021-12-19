@@ -18,9 +18,9 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 const Bar = () =>{
     const [selected, setSelected] = React.useState(1);
-    return <Box flex={1} bg="white" safeAreaTop>
+    return <Box bg="white" >
         <Center flex={1}></Center>
-        <HStack bg="muted.200" alignItems="center" safeAreaBottom shadow={6}>
+        <HStack bg="muted.200" alignItems="center" safeAreaBottom shadow={9}>
           <Pressable
             opacity={selected === 0 ? 1 : 0.5}
             py="3"

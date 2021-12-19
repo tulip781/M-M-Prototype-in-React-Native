@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useState, useEffect }from "react"
+
 import {
   Box,
   Heading,
@@ -10,11 +11,36 @@ import {
   Stack,
   NativeBaseProvider,
 } from "native-base"
-const Card = () => {
+const Card = (props) => {
+
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+
+  const getMovies = async () => {
+     try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/photos/1');
+      const json = await response.json();
+      setData(json);
+
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getMovies();
+  });
+
+
+
   return (
     <Box
     safeArea
       maxW="80"
+      my="2"
       rounded="lg"
       overflow="hidden"
       borderColor="coolGray.200"
@@ -35,7 +61,7 @@ const Card = () => {
         <AspectRatio w="100%" ratio={16 / 9}>
           <Image
             source={{
-              uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg",
+              uri: props.image,
             }}
             alt="image"
           />
@@ -55,13 +81,13 @@ const Card = () => {
           px="3"
           py="1.5"
         >
-          Daddy's Pasta
+         {props.title}
         </Center>
       </Box>
       <Stack p="4" space={3}>
         <Stack space={2}>
           <Heading size="md" ml="-1">
-            Veggie Dhal
+            {props.title}
           </Heading>
           <Text
             fontSize="xs"
@@ -75,7 +101,7 @@ const Card = () => {
             ml="-0.5"
             mt="-1"
           >
-            Pasta, Tomato, Salad
+            {props.ingredients}
           </Text>
         </Stack>
         <Text fontWeight="400">
